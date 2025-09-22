@@ -35,3 +35,158 @@ Já a versão com o laço for é a mais legível e concisa, pois concentra em su
 valor inicial, condição de término e incremento. Dessa forma, em termos de clareza, manutenção e boas práticas de programação, o uso do for se mostra a 
 alternativa mais adequada entre as três abordagens.
 
+
+## Atividade 2 – Seleção múltipla em diferentes linguagens
+Muitos programas oferecem menus interativos. Suponha que você precisa implementar um menu com as seguintes opções:
+
+1. Calcular o quadrado de um número.
+2. Calcular o fatorial de um número.
+3. Sair do programa.
+
+**Tarefas:**
+1. Implemente esse menu em **C** utilizando `switch/case`.
+#include <stdio.h>
+
+int fatorial(int n) {
+    int fat = 1;
+    for (int i = 1; i <= n; i++) {
+        fat *= i;
+    }
+    return fat;
+}
+
+int main() {
+    int opcao, num;
+
+    do {
+        printf("\nMenu:\n");
+        printf("1. Calcular o quadrado de um número\n");
+        printf("2. Calcular o fatorial de um número\n");
+        printf("3. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch(opcao) {
+            case 1:
+                printf("Digite um número: ");
+                scanf("%d", &num);
+                printf("Quadrado: %d\n", num * num);
+                break;
+            case 2:
+                printf("Digite um número: ");
+                scanf("%d", &num);
+                printf("Fatorial: %d\n", fatorial(num));
+                break;
+            case 3:
+                printf("Encerrando o programa...\n");
+                break;
+            default:
+                printf("Opção inválida!\n");
+        }
+    } while(opcao != 3);
+
+    return 0;
+}
+
+2. Implemente o mesmo menu em **Python**, utilizando apenas `if/elif/else`.
+def fatorial(n):
+    fat = 1
+    for i in range(1, n + 1):
+        fat *= i
+    return fat
+
+while True:
+    print("\nMenu:")
+    print("1. Calcular o quadrado de um número")
+    print("2. Calcular o fatorial de um número")
+    print("3. Sair")
+    opcao = int(input("Escolha uma opção: "))
+
+    if opcao == 1:
+        num = int(input("Digite um número: "))
+        print("Quadrado:", num * num)
+    elif opcao == 2:
+        num = int(input("Digite um número: "))
+        print("Fatorial:", fatorial(num))
+    elif opcao == 3:
+        print("Encerrando o programa...")
+        break
+    else:
+        print("Opção inválida!")
+
+3. Execute os dois programas e compare as soluções em relação à clareza e quantidade de código.
+A implementação em C, utilizando switch/case, apresenta maior rigor estrutural, demandando a declaração explícita de funções auxiliares, 
+variáveis e controle de fluxo. Além disso, a manipulação de entrada e saída exige chamadas adicionais, como scanf e printf, que tornam
+o código mais extenso. Já a implementação em Python, baseada em if/elif/else, mostra-se mais direta e enxuta, pois a linguagem dispensa 
+grande parte da sintaxe obrigatória presente em C. Dessa forma, o código em Python atinge a mesma funcionalidade com menos linhas e maior legibilidade.
+
+4. Escreva um comentário final destacando em qual linguagem foi mais simples de implementar e justificar o motivo.
+A implementação em Python é a mais simples e prática, sobretudo pela sintaxe minimalista e pela flexibilidade na manipulação de entrada 
+e saída. Enquanto a versão em C é importante para compreender estruturas de controle de baixo nível,a versão em Python evidencia como 
+linguagens de alto nível favorecem a clareza, a rapidez no desenvolvimento e a manutenção do código.
+
+
+
+## Atividade 3 – Explorando alternativas ao `goto`
+Historicamente, o `goto` foi usado para resolver diferentes tipos de desvio. Hoje, a maioria das linguagens fornece alternativas como `break`, `continue` e `return`.
+
+**Tarefas:**
+1. Escreva um programa que percorra uma lista de números inteiros e:
+   - Pare imediatamente a execução ao encontrar o número 0 (`break`).
+   - Pule os números negativos sem processá-los (`continue`).
+   - Retorne o dobro do primeiro número par encontrado (`return`).
+#include <stdio.h>
+
+int processaLista(int lista[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        if (lista[i] == 0) {       // Interrompe imediatamente
+            break;
+        }
+        if (lista[i] < 0) {        // Ignora números negativos
+            continue;
+        }
+        if (lista[i] % 2 == 0) {   // Retorna o dobro do primeiro par
+            return lista[i] * 2;
+        }
+    }
+    return -1; // Caso não haja número par antes do 0
+}
+
+int main() {
+    int numeros[] = {-3, -5, 7, -2, 9, 4, 0, 10};
+    int tamanho = sizeof(numeros) / sizeof(numeros[0]);
+
+    int resultado = processaLista(numeros, tamanho);
+
+    if (resultado != -1) {
+        printf("Resultado: %d\n", resultado);
+    } else {
+        printf("Nenhum número par encontrado antes do 0.\n");
+    }
+
+    return 0;
+}
+
+2. Comente sobre como seria a implementação desse mesmo programa utilizando apenas `goto` e rótulos, destacando as vantagens da abordagem moderna.
+
+Caso essa mesma lógica fosse implementada utilizando apenas goto e rótulos, o programa exigiria a criação de múltiplos pontos de desvio 
+para representar cada situação (quando encontrar 0, quando pular números negativos e quando retornar o dobro do primeiro número par). 
+Essa abordagem resultaria em um código mais longo, fragmentado e de difícil compreensão, pois seria necessário acompanhar os saltos entre 
+diferentes trechos de código para entender o fluxo completo.
+A solução moderna, utilizando break, continue e return, é mais clara e expressiva, visto que cada palavra-chave descreve diretamente 
+a intenção do programador. Além disso, promove maior legibilidade, manutenção simplificada e reduz a probabilidade de erros lógicos, 
+demonstrando a evolução das linguagens em direção a boas práticas de programação.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
