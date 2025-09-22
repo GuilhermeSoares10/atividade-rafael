@@ -1,0 +1,85 @@
+# Exercícios – Capítulo 9: Subprogramas
+
+## Exercício 1 – Passagem de Parâmetros por Valor e por Referência
+Considere o seguinte pseudocódigo de uma função que tenta dobrar o valor de um número:
+
+```text
+procedure dobrar(x)
+    x := x * 2
+end
+```
+
+1. Implemente esse subprograma em **C** duas vezes:
+   - A primeira versão recebendo o parâmetro **por valor**.
+   - A segunda versão recebendo o parâmetro **por referência** (usando ponteiros).
+#include <stdio.h>
+
+// Função que recebe o parâmetro por valor
+void dobrarPorValor(int x) {
+    x = x * 2;
+    printf("Dentro da função (por valor): %d\n", x);
+}
+
+int main() {
+    int num = 10;
+    printf("Valor inicial: %d\n", num);
+
+    dobrarPorValor(num); // chama a função por valor
+    printf("Após chamada por valor: %d\n", num); // o valor não muda
+
+    return 0;
+}
+
+2. Escreva um programa principal que:
+   - Crie uma variável inteira com valor inicial 10.
+   - Chame a função `dobrar` por valor e exiba o resultado.
+   - Chame a função `dobrar` por referência e exiba o resultado.
+#include <stdio.h>
+
+// Função que recebe por valor
+void dobrarPorValor(int x) {
+    x = x * 2;
+    printf("Dentro da função (por valor): %d\n", x);
+}
+
+// Função que recebe por referência (ponteiro)
+void dobrarPorReferencia(int *x) {
+    *x = (*x) * 2;
+    printf("Dentro da função (por referência): %d\n", *x);
+}
+
+int main() {
+    int num = 10;
+
+    printf("Valor inicial: %d\n", num);
+
+    // Chamada por valor
+    dobrarPorValor(num);
+    printf("Após chamada por valor: %d\n", num);
+
+    // Chamada por referência
+    dobrarPorReferencia(&num);
+    printf("Após chamada por referência: %d\n", num);
+
+    return 0;
+}
+
+
+
+
+
+**Questões:**
+- Qual a diferença observada entre as duas versões?
+Na versão por valor, a função recebe apenas uma cópia da variável original. Portanto, qualquer alteração feita dentro da função não afeta a variável do programa principal. 
+Já na versão por referência, a função recebe o endereço da variável original, permitindo que as modificações feitas dentro da função sejam refletidas diretamente na variável do escopo principal.
+- Por que o valor da variável só se altera na versão por referência?
+O valor da variável só muda na versão por referência porque a função acessa diretamente o espaço de memória onde a variável original está armazenada. Ao usar um ponteiro, 
+qualquer modificação feita através dele altera o conteúdo da variável real, enquanto na passagem por valor, a função trabalha apenas com uma cópia isolada.
+- Relacione essa diferença com as estratégias de passagem de parâmetros discutidas no Capítulo 9.
+O Capítulo 9 diferencia duas estratégias principais de passagem de parâmetros:
+Passagem por valor: garante que a variável original permaneça inalterada, oferecendo segurança contra modificações indesejadas. 
+É útil quando o subprograma precisa apenas ler ou calcular valores sem alterar os dados originais.
+Passagem por referência: permite que o subprograma modifique diretamente a variável original, tornando o código mais eficiente quando é necessário atualizar dados ou 
+trabalhar com estruturas grandes.
+O exemplo do exercício ilustra claramente essas diferenças: a alteração não persiste na passagem por valor, enquanto persiste na passagem por referência, 
+demonstrando o impacto direto da estratégia escolhida no comportamento do programa.
